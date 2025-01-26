@@ -37,7 +37,7 @@ export default function AuthLayout({
                </Link>
                
             </Flex>
-            <Flex className='bg-red-100' pl="9" flexGrow="1">
+            <Flex pl="9" flexGrow="1">
                 {children}
             </Flex>
         </Flex>
