@@ -1,0 +1,13 @@
+.heading{
+    background-color: lightblue;
+}
+
+.headingItem{
+    padding-top: 20px;
+    cursor: pointer;
+    border-bottom: 1px solid lightgrey;
+}
+
+/* .btn{
+   width: 200px
+} */

@@ -1,5 +1,8 @@
+'use client'
+
 import Image from "next/image";
 import styles from "./page.module.css";
+import { Button } from "@radix-ui/themes";
 
 export default function Home() {
   return (
@@ -44,6 +47,7 @@ export default function Home() {
           >
             Read our docs
           </a>
+          <Button className={styles.btn} onClick={() => alert('Hehehehe')}>Pencet</Button>
         </div>
       </main>
       <footer className={styles.footer}>
