@@ -9,7 +9,7 @@ export default function TableComponent() {
     const [page, setPage] = useState(1)
     const { data, isLoading } = useBooks({ page })
 
-    const currData = data?.data
+    const currData = data?.data ||[]
 
     return (
         <Flex mt="5" direction="column">
@@ -26,13 +26,13 @@ export default function TableComponent() {
                 </Table.Header>
                 <Table.Body>
                     {currData?.map(item => (
-                    <Table.Row key={item.id}>
-                        <Table.Cell>{item.title}</Table.Cell>
-                        <Table.Cell>{item.author}</Table.Cell>
-                        <Table.Cell>{item.quantity}</Table.Cell>
-                        <Table.Cell>{item.category.name}</Table.Cell>
-                        <Table.Cell>{item.isbn}</Table.Cell>
-                    </Table.Row>
+                        <Table.Row key={item.id}>
+                            <Table.Cell>{item.title}</Table.Cell>
+                            <Table.Cell>{item.author}</Table.Cell>
+                            <Table.Cell>{item.quantity}</Table.Cell>
+                            <Table.Cell>{item.category?.name}</Table.Cell>
+                            <Table.Cell>{item.isbn}</Table.Cell>
+                        </Table.Row>
                     ))}
                 </Table.Body>
             </Table.Root>

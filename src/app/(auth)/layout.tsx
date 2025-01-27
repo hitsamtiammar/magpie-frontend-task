@@ -6,6 +6,7 @@ import { PinLeftIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
+import QueryWrapper from './query-wrapper'
 
 export default function AuthLayout({
     children,
@@ -46,8 +47,9 @@ export default function AuthLayout({
                 
                 </Flex>
                 <Flex pl="9" flexGrow="1">
+                    <QueryWrapper>
                         {children}
-                  
+                    </QueryWrapper>
                 </Flex>
             </Flex>
         </Flex>

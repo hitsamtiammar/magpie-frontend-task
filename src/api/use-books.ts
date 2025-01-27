@@ -1,7 +1,6 @@
 import client from "./client";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosError } from "axios";
 import { useQuery } from "react-query";
-import { createQuery } from "react-query-kit";
 
 export interface GetBookRequest{
     page?:number
