@@ -46,7 +46,7 @@ export default function AuthLayout({
                 </Link>
                 
                 </Flex>
-                <Flex pl="9" flexGrow="1">
+                <Flex pl="9" mb="5" flexGrow="1">
                     <QueryWrapper>
                         {children}
                     </QueryWrapper>

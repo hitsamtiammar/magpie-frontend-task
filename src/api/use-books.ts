@@ -23,6 +23,11 @@ export interface GetBookResponse {
     categoryId: number
     isbn: string
     category: Category
+    _count: CountData
+  }
+
+  export interface CountData{
+    lending: number
   }
   
   export interface Category {

@@ -3,7 +3,9 @@ import Pagination from '@/components/pagination'
 import Searchbar from '@/components/Searchbar'
 import { Flex, Table } from '@radix-ui/themes'
 import React, { useState } from 'react'
-import { useBooks } from '@/api/use-books'
+import { useBooks, Book } from '@/api/use-books'
+import EditDialog from './edit-dialog'
+import DeleteDialog from './delete-dialog'
 
 export interface FilterProps{
     search?: string;
@@ -12,10 +14,11 @@ export interface FilterProps{
 export default function TableComponent() {
     const [page, setPage] = useState(1)
     const [filter, setFilter] = useState<FilterProps>({})
-    const { data, isLoading } = useBooks({ page, ...filter })
+    const { data, isLoading, refetch } = useBooks({ page, ...filter })
 
     function onSearch(text: string){
         const newFilter = {...filter}
+        setPage(1)
         if(text){
             setFilter({
                 ...newFilter,
@@ -25,6 +28,18 @@ export default function TableComponent() {
             delete newFilter.search;
             setFilter({ ...newFilter })
         }
+    }
+
+    function renderEditDialog(book: Book){
+        return (
+            <EditDialog onEditSuccess={() => refetch()} selectedBook={book} />
+        )
+    }
+
+    function renderDeleteDialog(book: Book){
+        return (
+            <DeleteDialog onDeleteSuccess={() => refetch()} selectedBook={book} />
+        )
     }
 
     const currData = data?.data ||[]
@@ -40,6 +55,8 @@ export default function TableComponent() {
                         <Table.ColumnHeaderCell>Quantity</Table.ColumnHeaderCell>
                         <Table.ColumnHeaderCell>Category</Table.ColumnHeaderCell>
                         <Table.ColumnHeaderCell>ISBN</Table.ColumnHeaderCell>
+                        <Table.ColumnHeaderCell>Number of lending</Table.ColumnHeaderCell>
+                        <Table.ColumnHeaderCell>Actions</Table.ColumnHeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
@@ -50,6 +67,13 @@ export default function TableComponent() {
                             <Table.Cell>{item.quantity}</Table.Cell>
                             <Table.Cell>{item.category?.name}</Table.Cell>
                             <Table.Cell>{item.isbn}</Table.Cell>
+                            <Table.Cell>{item._count?.lending}</Table.Cell>
+                            <Table.Cell className="gap-2">
+                                <Flex gap="3" direction="row">
+                                    {renderEditDialog(item)}
+                                    {renderDeleteDialog(item)}
+                                </Flex>
+                            </Table.Cell>
                         </Table.Row>
                     ))}
                 </Table.Body>
