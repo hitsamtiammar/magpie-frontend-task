@@ -1,6 +1,6 @@
 'use client'
 import Pagination from '@/components/pagination'
-import Searchbar from '@/components/Searchbar'
+import Searchbar from './searchbar'
 import { Flex, Table } from '@radix-ui/themes'
 import React, { useState } from 'react'
 import { useBooks, Book } from '@/api/use-books'
@@ -46,7 +46,7 @@ export default function TableComponent() {
 
     return (
         <Flex mt="5" direction="column">
-            <Searchbar onSearch={onSearch} placeholder="Search by title" />
+            <Searchbar onCreateSuccess={() => refetch()} onSearch={onSearch} placeholder="Search by title" />
             <Table.Root mt="5" variant="surface">
                 <Table.Header>
                     <Table.Row>
