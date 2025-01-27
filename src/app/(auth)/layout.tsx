@@ -46,7 +46,8 @@ export default function AuthLayout({
                 
                 </Flex>
                 <Flex pl="9" flexGrow="1">
-                    {children}
+                        {children}
+                  
                 </Flex>
             </Flex>
         </Flex>

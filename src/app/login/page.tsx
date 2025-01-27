@@ -10,14 +10,15 @@ import { cookies } from 'next/headers'
 export default async function Login () {
     const cookie = await cookies()
     const TOKEN = cookie.get('TOKEN')
-    console.log('TOKEN', TOKEN)
     if(TOKEN){
         redirect('/dashboard')
     }
 
     async function setToken(token: string){
         'use server'
-        try{           
+        try{
+            const cookie = await cookies()
+            console.log('token', token)
             cookie.set('TOKEN', token)
             redirect('/dashboard')
         }catch(err){

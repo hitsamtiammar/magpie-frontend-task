@@ -1,10 +1,8 @@
 'use client';
 import { Button, Flex, Heading, Strong, Text, TextField } from '@radix-ui/themes'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useLogin } from '@/api/use-login';
 import { AxiosError } from 'axios';
-import { useRouter } from 'next/navigation';
-import Cookies from 'js-cookie'
 
 export interface FormProps{
     setToken: (token: string) => void
@@ -14,13 +12,10 @@ export default function Form({ setToken }: FormProps) {
     const mutationLogin = useLogin()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const router = useRouter()
     const [error, setError] = useState({
         email: '',
         password: ''
     })
-
-    console.log('s', Cookies.get('TOKEN'))
 
     function onDataChange(value: string, onHook: (value: string) => void){
         setError({
