@@ -6,15 +6,33 @@ import React, { useState } from 'react'
 import { useLending } from '@/api/use-lending'
 import moment from 'moment'
 
+export interface FilterProps{
+    search?: string;
+}
+
 export default function TableComponent() {
     const [page, setPage] = useState(1)
-    const { data, isLoading } = useLending({ page })
+    const [filter, setFilter] = useState<FilterProps>({});
+    const { data, isLoading } = useLending({ page, ...filter })
+
+    function onSearch(text: string){
+        const newFilter = {...filter}
+        if(text){
+            setFilter({
+                ...newFilter,
+                search: text
+            })
+        }else{
+            delete newFilter.search;
+            setFilter({ ...newFilter })
+        }
+    }
 
     const currData = data?.data || []
 
     return (
         <Flex mt="5" direction="column">
-            <Searchbar placeholder="Search by book title" />
+            <Searchbar onSearch={onSearch} placeholder="Search by member name" />
             <Table.Root mt="5" variant="surface">
                 <Table.Header>
                     <Table.Row>

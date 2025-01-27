@@ -46,12 +46,12 @@ export interface GetLendingResponse {
   }
   
 
-export const useLending = ({page}: GetLendingRequest) => {
+export const useLending = ({page, ...rest}: GetLendingRequest) => {
     return useQuery<GetLendingRequest, AxiosError, GetLendingResponse>({
-        queryKey: ['page', { page }],
+        queryKey: ['page', { page, ...rest }],
         queryFn: async({ }) => {
             const response = await client.get('lending',{
-                params: { page }
+                params: { page, ...rest }
             });
             return response.data;
         }

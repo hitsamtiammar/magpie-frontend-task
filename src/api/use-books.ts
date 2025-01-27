@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 
 export interface GetBookRequest{
     page?:number
+    search?: string
 }
   
 export interface GetBookResponse {
@@ -30,12 +31,12 @@ export interface GetBookResponse {
   }
   
 
-export const useBooks = ({page}: { page: number }) => {
+export const useBooks = ({page, ...rest}: GetBookRequest) => {
   return useQuery<GetBookRequest, AxiosError, GetBookResponse>({
-    queryKey: ['page', { page }],
+    queryKey: ['page', { page, ...rest }],
     queryFn: async({ }) => {
         const response = await client.get('books',{
-            params: { page }
+            params: { page, ...rest }
         });
         return response.data;
     }
