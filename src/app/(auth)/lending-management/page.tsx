@@ -1,4 +1,3 @@
-'use client'
 import { Container, Heading } from '@radix-ui/themes'
 import React from 'react'
 import TableComponent from './table'
