@@ -8,14 +8,15 @@ export interface PaginationProps{
   totalPage?: number;
   onNext?: () => void
   onPrev?: () => void
+  disabled?: boolean
 }
 
-export default function Pagination({ page = 1, totalPage = Infinity, onNext = noop, onPrev = noop } : PaginationProps) {
+export default function Pagination({ disabled = false, page = 1, totalPage = Infinity, onNext = noop, onPrev = noop } : PaginationProps) {
   return (
     <Flex gap="2" pt="2" justify="center" align="center" direction="row">
-        <Button onClick={onPrev} disabled={page === 1} ><ArrowLeftIcon/> Prev</Button>
+        <Button onClick={onPrev} disabled={page === 1 || disabled} ><ArrowLeftIcon/> Prev</Button>
         <Text>Page: {page}</Text>
-        <Button disabled={page === totalPage} onClick={onNext}>Next <ArrowRightIcon/></Button>
+        <Button disabled={page === totalPage || disabled} onClick={onNext}>Next <ArrowRightIcon/></Button>
     </Flex>
   )
 }

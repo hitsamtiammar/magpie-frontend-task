@@ -4,20 +4,10 @@ import Searchbar from '@/components/Searchbar'
 import { Flex, Table } from '@radix-ui/themes'
 import React, { useState } from 'react'
 import { useBooks } from '@/api/use-books'
-import Loading from '@/components/Loading'
 
 export default function TableComponent() {
     const [page, setPage] = useState(1)
     const { data, isLoading } = useBooks({ page })
-    console.log('data', data?.data)
-
-    if(isLoading){
-        return (
-            <Flex mt="5" direction="column" align="center">
-                <Loading/>
-            </Flex>
-        )
-    }
 
     const currData = data?.data
 
@@ -50,6 +40,7 @@ export default function TableComponent() {
                 onPrev={() => setPage(page - 1)} 
                 onNext={() => setPage(page + 1)}
                 totalPage={data?.totalPage}
+                disabled={isLoading}
                 page={page}
             />
         </Flex>
