@@ -7,13 +7,14 @@ import { useBooks, Book } from '@/api/use-books'
 import EditDialog from './edit-dialog'
 import DeleteDialog from './delete-dialog'
 import CreateDialog from './create-dialog'
-
+import FilterDialog from './filter-dialog'
 export interface FilterProps{
     search?: string;
 }
 
 export default function TableComponent() {
     const [page, setPage] = useState(1)
+    const [openFilter, setOpenFilter] = useState(false)
     const [filter, setFilter] = useState<FilterProps>({})
     const { data, isLoading, refetch } = useBooks({ page, ...filter })
 
@@ -51,6 +52,7 @@ export default function TableComponent() {
                 middleButton={<CreateDialog onCreateSuccess={() => refetch()} />}
                 onSearch={onSearch}
                 placeholder="Search by title"
+                onFilterPress={() => setOpenFilter(true)}
             />
             <Table.Root mt="5" variant="surface">
                 <Table.Header>
@@ -90,6 +92,7 @@ export default function TableComponent() {
                 disabled={isLoading}
                 page={page}
             />
+            <FilterDialog open={openFilter} setOpen={setOpenFilter}/>
         </Flex>
     )
 }

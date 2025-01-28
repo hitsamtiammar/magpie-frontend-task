@@ -2,7 +2,7 @@ import { CreateBookRequest, useCreateBook } from '@/api/use-create-book'
 import { showErrorMsg } from '@/utils/showErrorMsg'
 import { Button, Dialog, Flex, Text, TextField } from '@radix-ui/themes'
 import React, { useState } from 'react'
-
+import CategoryInput from '../_inputs/category-input'
 export interface CreateDialogProps{
     onCreateSuccess: () => void
 }
@@ -17,7 +17,7 @@ export default function CreateDialog({ onCreateSuccess }: CreateDialogProps) {
     })
     const [open, setOpen] = useState(false);
     const mutation = useCreateBook()
-    function onEdit(key: string, value: string){
+    function onEdit(key: string, value: string | number){
         setCurrBook({
             ...currBook,
             [key]: value
@@ -46,7 +46,6 @@ export default function CreateDialog({ onCreateSuccess }: CreateDialogProps) {
             <Dialog.Trigger>
                 <Button color='green'>Create</Button>
             </Dialog.Trigger>
-
             <Dialog.Content aria-description='Edit Content' maxWidth="450px">
                 <Dialog.Title>Create Book</Dialog.Title>
                 <Flex direction="column" gap="3">
@@ -79,7 +78,7 @@ export default function CreateDialog({ onCreateSuccess }: CreateDialogProps) {
                             min={0}
                             placeholder="Enter your quantity"
                             value={currBook?.quantity}
-                            onChange={(e) => onEdit('quantity', e.target.value)}
+                            onChange={(e) => onEdit('quantity', Number(e.target.value))}
                         />
                     </label>
                     <label>
@@ -92,8 +91,17 @@ export default function CreateDialog({ onCreateSuccess }: CreateDialogProps) {
                             onChange={(e) => onEdit('isbn', e.target.value)}
                         />
                     </label>
+                    <label>
+                        <Text as="div" size="2" mb="1" weight="bold">
+                            Category
+                        </Text>
+                        <CategoryInput
+                            placeholder="Enter category"
+                            value={currBook?.categoryId?.toString()}
+                            onValueChange={(value) => onEdit('categoryId', Number(value))}
+                        />
+                    </label>
                 </Flex>
-
                 <Flex gap="3" mt="4" justify="end">
                     <Dialog.Close>
                         <Button disabled={mutation.isLoading} variant="soft" color="gray">

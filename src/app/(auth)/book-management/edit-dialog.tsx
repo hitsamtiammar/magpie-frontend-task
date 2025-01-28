@@ -3,6 +3,7 @@ import { useEditBook } from '@/api/use-edit-book'
 import { showErrorMsg } from '@/utils/showErrorMsg'
 import { Button, Dialog, Flex, Text, TextField } from '@radix-ui/themes'
 import React, { useState } from 'react'
+import CategoryInput from '../_inputs/category-input'
 
 export interface EditDialogProps{
     selectedBook: Book
@@ -13,7 +14,7 @@ export default function EditDialog({ selectedBook, onEditSuccess }: EditDialogPr
     const [currBook, setCurrBook] = useState({...selectedBook})
     const [open, setOpen] = useState(false);
     const mutation = useEditBook()
-    function onEdit(key: string, value: string){
+    function onEdit(key: string, value: string | number){
         setCurrBook({
             ...currBook,
             [key]: value
@@ -77,7 +78,7 @@ export default function EditDialog({ selectedBook, onEditSuccess }: EditDialogPr
                             min={0}
                             placeholder="Enter your quantity"
                             value={currBook?.quantity}
-                            onChange={(e) => onEdit('quantity', e.target.value)}
+                            onChange={(e) => onEdit('quantity', Number(e.target.value))}
                         />
                     </label>
                     <label>
@@ -89,6 +90,15 @@ export default function EditDialog({ selectedBook, onEditSuccess }: EditDialogPr
                             value={currBook?.isbn}
                             onChange={(e) => onEdit('isbn', e.target.value)}
                         />
+                    </label>
+                    <label>
+                        <Text as="div" size="2" mb="1" weight="bold">
+                            Category
+                        </Text>
+                        <CategoryInput
+                            placeholder="Enter your ISBN"
+                            value={currBook?.categoryId?.toString()}
+                            onValueChange={(value) => onEdit('categoryId', Number(value))}                        />
                     </label>
                 </Flex>
 

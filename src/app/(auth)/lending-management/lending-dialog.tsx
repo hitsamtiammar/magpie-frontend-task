@@ -60,7 +60,13 @@ export default function LendingDialog({ onCreateSuccess } : LendingDialogProps) 
                         <Text as="div" size="2" mb="1" weight="bold">
                             Book Title
                         </Text>
-                        <Select.Root onValueChange={(value) => setBookId(value)} value={bookId} autoComplete='test' size="2" defaultValue="apple">
+                        <Select.Root 
+                            onValueChange={(value) => setBookId(value)}
+                            value={bookId}
+                            autoComplete='test'
+                            size="2"
+                            defaultValue="apple"
+                        >
                             <Select.Trigger className="w-full" />
                             <Select.Content>
                                 {bookData.map(item => (

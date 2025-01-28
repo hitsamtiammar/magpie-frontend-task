@@ -7,6 +7,7 @@ import { useLending } from '@/api/use-lending'
 import moment from 'moment'
 import LendingDialog from './lending-dialog'
 import ReturnDialog from './return-dialog'
+import FilterDialog from './filter-dialog'
 
 export interface FilterProps{
     search?: string;
@@ -14,6 +15,7 @@ export interface FilterProps{
 
 export default function TableComponent() {
     const [page, setPage] = useState(1)
+    const [openFilter, setOpenFilter] = useState(false)
     const [filter, setFilter] = useState<FilterProps>({});
     const { data, isLoading, refetch } = useLending({ page, ...filter })
 
@@ -36,6 +38,7 @@ export default function TableComponent() {
         <Flex mt="5" direction="column">
             <Searchbar
                 onSearch={onSearch}
+                onFilterPress={() => setOpenFilter(true)}
                 middleButton={<LendingDialog onCreateSuccess={() => refetch()} />}
                 placeholder="Search by member name"
             />
@@ -77,6 +80,7 @@ export default function TableComponent() {
                 disabled={isLoading}
                 page={page}
             />
+            <FilterDialog open={openFilter} setOpen={setOpenFilter} />
         </Flex>
     )
 }
