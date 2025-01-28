@@ -5,6 +5,7 @@ import { Flex, Table } from '@radix-ui/themes'
 import React, { useState } from 'react'
 import { useLending } from '@/api/use-lending'
 import moment from 'moment'
+import LendingDialog from './lending-dialog'
 
 export interface FilterProps{
     search?: string;
@@ -13,7 +14,7 @@ export interface FilterProps{
 export default function TableComponent() {
     const [page, setPage] = useState(1)
     const [filter, setFilter] = useState<FilterProps>({});
-    const { data, isLoading } = useLending({ page, ...filter })
+    const { data, isLoading, refetch } = useLending({ page, ...filter })
 
     function onSearch(text: string){
         const newFilter = {...filter}
@@ -32,7 +33,11 @@ export default function TableComponent() {
 
     return (
         <Flex mt="5" direction="column">
-            <Searchbar onSearch={onSearch} placeholder="Search by member name" />
+            <Searchbar
+                onSearch={onSearch}
+                middleButton={<LendingDialog onCreateSuccess={() => refetch()} />}
+                placeholder="Search by member name"
+            />
             <Table.Root mt="5" variant="surface">
                 <Table.Header>
                     <Table.Row>

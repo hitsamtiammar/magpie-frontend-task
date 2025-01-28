@@ -1,11 +1,12 @@
 'use client'
 import Pagination from '@/components/pagination'
-import Searchbar from './searchbar'
+import Searchbar from '@/components/Searchbar'
 import { Flex, Table } from '@radix-ui/themes'
 import React, { useState } from 'react'
 import { useBooks, Book } from '@/api/use-books'
 import EditDialog from './edit-dialog'
 import DeleteDialog from './delete-dialog'
+import CreateDialog from './create-dialog'
 
 export interface FilterProps{
     search?: string;
@@ -46,7 +47,11 @@ export default function TableComponent() {
 
     return (
         <Flex mt="5" direction="column">
-            <Searchbar onCreateSuccess={() => refetch()} onSearch={onSearch} placeholder="Search by title" />
+            <Searchbar 
+                middleButton={<CreateDialog onCreateSuccess={() => refetch()} />}
+                onSearch={onSearch}
+                placeholder="Search by title"
+            />
             <Table.Root mt="5" variant="surface">
                 <Table.Header>
                     <Table.Row>

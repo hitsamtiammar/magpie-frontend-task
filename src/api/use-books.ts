@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 export interface GetBookRequest{
     page?:number
     search?: string
+    showAll?: boolean
 }
   
 export interface GetBookResponse {
