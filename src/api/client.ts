@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, InternalAxiosRequestConfig } from "axios";
+import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
 
 export const client: AxiosInstance = axios.create({
@@ -26,5 +26,16 @@ client.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+client.interceptors.response.use(
+    (res) => {
+        console.log('Response done', res)
+        return  res
+    },
+    (error:AxiosError<{message: string}>) => {
+        console.log('An error ocured', error)
+        return Promise.reject(error)
+    }
+)
 
 export default client;

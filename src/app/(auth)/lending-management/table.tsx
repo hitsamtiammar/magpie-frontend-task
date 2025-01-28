@@ -6,6 +6,7 @@ import React, { useState } from 'react'
 import { useLending } from '@/api/use-lending'
 import moment from 'moment'
 import LendingDialog from './lending-dialog'
+import ReturnDialog from './return-dialog'
 
 export interface FilterProps{
     search?: string;
@@ -46,6 +47,7 @@ export default function TableComponent() {
                         <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
                         <Table.ColumnHeaderCell>Borrowed Date</Table.ColumnHeaderCell>
                         <Table.ColumnHeaderCell>Due Date</Table.ColumnHeaderCell>
+                        <Table.ColumnHeaderCell>Actions</Table.ColumnHeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
@@ -56,6 +58,13 @@ export default function TableComponent() {
                             <Table.Cell>{item.status}</Table.Cell>
                             <Table.Cell>{moment(item.borrowedDate).format('DD MMMM YYYY HH:mm:ss')}</Table.Cell>
                             <Table.Cell>{moment(item.dueDate).format('DD MMMM YYYY HH:mm:ss')}</Table.Cell>
+                            <Table.Cell>
+                                <ReturnDialog
+                                    onReturnSuccess={() => refetch()}
+                                    selectedLending={item}
+                                    disabled={item.status === 'RETURNED'}
+                                />
+                            </Table.Cell>
                         </Table.Row>
                     ))}
                    

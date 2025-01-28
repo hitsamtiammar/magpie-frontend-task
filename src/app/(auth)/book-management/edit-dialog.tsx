@@ -1,5 +1,6 @@
 import { Book } from '@/api/use-books'
 import { useEditBook } from '@/api/use-edit-book'
+import { showErrorMsg } from '@/utils/showErrorMsg'
 import { Button, Dialog, Flex, Text, TextField } from '@radix-ui/themes'
 import React, { useState } from 'react'
 
@@ -34,6 +35,7 @@ export default function EditDialog({ selectedBook, onEditSuccess }: EditDialogPr
             setOpen(false)
         }catch(err){
             console.log('Error on save edit', err)
+            showErrorMsg(err, 'An error on edit book')
         }
     }
 

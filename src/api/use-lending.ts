@@ -1,16 +1,17 @@
 import { useQuery } from "react-query";
 import client from "./client";
 import { AxiosError } from "axios";
+import { Book } from "./use-books";
 
 export interface GetLendingResponse {
     status: boolean
-    data: Daum[]
+    data: Lending[]
     count: number
     totalPage: number
     page: number
   }
   
-  export interface Daum {
+  export interface Lending {
     id: number
     bookId: number
     memberId: number
@@ -22,14 +23,6 @@ export interface GetLendingResponse {
     Member: Member
   }
   
-  export interface Book {
-    id: number
-    title: string
-    author: string
-    quantity: number
-    categoryId: number
-    isbn: string
-  }
   
   export interface Member {
     id: number

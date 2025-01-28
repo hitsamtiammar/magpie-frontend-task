@@ -13,6 +13,7 @@ export interface ConfirmDialogProps{
     confirmBtnColor?: BtnColor
     btnColor?: BtnColor
     onConfirm?: () => void
+    disabled?: boolean
 }
 
 export default function ConfirmDialog({
@@ -23,12 +24,13 @@ export default function ConfirmDialog({
     confirmBtnText = 'Confirm',
     confirmBtnColor = 'amber',
     btnColor = 'blue',
-    onConfirm = noop
+    onConfirm = noop,
+    disabled = false
 }: ConfirmDialogProps) {
   return (
     <AlertDialog.Root>
         <AlertDialog.Trigger>
-            <Button color={btnColor}>{btnText}</Button>
+            <Button disabled={disabled} color={btnColor}>{btnText}</Button>
         </AlertDialog.Trigger>
         <AlertDialog.Content maxWidth="450px">
             <AlertDialog.Title>{alertTitle}</AlertDialog.Title>

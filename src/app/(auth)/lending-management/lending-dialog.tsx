@@ -3,6 +3,7 @@ import { useMember } from '@/api/use-member';
 import { Button, Dialog, Flex, Select, Text } from '@radix-ui/themes';
 import React, { useState } from 'react'
 import { useCreateLending } from '@/api/use-create-lending';
+import { showErrorMsg } from '@/utils/showErrorMsg';
 
 export interface LendingDialogProps{
     onCreateSuccess: () => void
@@ -29,6 +30,7 @@ export default function LendingDialog({ onCreateSuccess } : LendingDialogProps) 
             setOpen(false)
         }catch(err){
             console.log('Error on save edit', err)
+            showErrorMsg(err, 'An error on lending book')
         }
     }
 

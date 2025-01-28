@@ -2,6 +2,7 @@ import React from 'react'
 import ConfirmDialog from '../_inputs/confirm-dialog'
 import { Book } from '@/api/use-books'
 import { useDeleteBook } from '@/api/use-delete-book'
+import { showErrorMsg } from '@/utils/showErrorMsg'
 
 export interface DeleteDialogProps{
     selectedBook: Book
@@ -16,6 +17,7 @@ export default function DeleteDialog({ selectedBook, onDeleteSuccess } : DeleteD
             onDeleteSuccess()
         }catch(err){
             console.log('Delete book error', err)
+            showErrorMsg(err, 'An error on delete book' )
         }
     }
 
