@@ -7,16 +7,13 @@ import { useLending } from '@/api/use-lending'
 import moment from 'moment'
 import LendingDialog from './lending-dialog'
 import ReturnDialog from './return-dialog'
-import FilterDialog from './filter-dialog'
+import FilterDialog, { FilterParams } from './filter-dialog'
 
-export interface FilterProps{
-    search?: string;
-}
 
 export default function TableComponent() {
     const [page, setPage] = useState(1)
     const [openFilter, setOpenFilter] = useState(false)
-    const [filter, setFilter] = useState<FilterProps>({});
+    const [filter, setFilter] = useState<FilterParams>({});
     const { data, isLoading, refetch } = useLending({ page, ...filter })
 
     function onSearch(text: string){
@@ -29,6 +26,19 @@ export default function TableComponent() {
         }else{
             delete newFilter.search;
             setFilter({ ...newFilter })
+        }
+    }
+
+    function onFilterChange(filterParams: FilterParams | null){
+        setOpenFilter(false)
+        console.log('filterParams', {filterParams, filter})
+        if(filterParams){
+            setFilter({
+                ...filter,
+                ...filterParams
+            })
+        }else{
+            setFilter({})
         }
     }
 
@@ -80,7 +90,7 @@ export default function TableComponent() {
                 disabled={isLoading}
                 page={page}
             />
-            <FilterDialog open={openFilter} setOpen={setOpenFilter} />
+            <FilterDialog onFilterChange={onFilterChange} open={openFilter} setOpen={setOpenFilter} />
         </Flex>
     )
 }
