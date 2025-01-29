@@ -31,6 +31,7 @@ export default function TableComponent() {
 
     function onFilterChange(filterParams: FilterParams | null){
         setOpenFilter(false)
+        setPage(1)
         console.log('filterParams', {filterParams, filter})
         if(filterParams){
             setFilter({

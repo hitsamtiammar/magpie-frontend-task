@@ -46,6 +46,7 @@ export default function TableComponent() {
 
     function onFilterChange(filterParams: FilterParams | null){
         setOpenFilter(false)
+        setPage(1)
         if(filterParams){
             setFilter({
                 ...filter,
