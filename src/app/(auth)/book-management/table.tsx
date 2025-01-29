@@ -7,7 +7,7 @@ import { useBooks, Book } from '@/api/use-books'
 import EditDialog from './edit-dialog'
 import DeleteDialog from './delete-dialog'
 import CreateDialog from './create-dialog'
-import FilterDialog from './filter-dialog'
+import FilterDialog, { FilterParams } from './filter-dialog'
 export interface FilterProps{
     search?: string;
 }
@@ -42,6 +42,18 @@ export default function TableComponent() {
         return (
             <DeleteDialog onDeleteSuccess={() => refetch()} selectedBook={book} />
         )
+    }
+
+    function onFilterChange(filterParams: FilterParams | null){
+        setOpenFilter(false)
+        if(filterParams){
+            setFilter({
+                ...filter,
+                ...filterParams
+            })
+        }else{
+            setFilter({})
+        }
     }
 
     const currData = data?.data ||[]
@@ -92,7 +104,7 @@ export default function TableComponent() {
                 disabled={isLoading}
                 page={page}
             />
-            <FilterDialog open={openFilter} setOpen={setOpenFilter}/>
+            <FilterDialog onFilterChange={onFilterChange} open={openFilter} setOpen={setOpenFilter}/>
         </Flex>
     )
 }
