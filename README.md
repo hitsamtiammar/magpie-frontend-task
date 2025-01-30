@@ -7,3 +7,6 @@ This is Task in frontend side with next js. To run this app, make sure you alrea
 1. run `npm install`
 2. create `.env` file and change value `NEXT_PUBLIC_API_URL` into your current backend
 3. run `npm start`
+
+# Login
+For login, you can use email `hitsam@test.com` and password `password123`
